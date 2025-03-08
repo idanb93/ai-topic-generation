@@ -1,0 +1,66 @@
+version: "2.1"
+
+services:
+  ##############################
+  # Database Container
+  ##############################
+  postgres:
+    restart: always
+    container_name: promoter-ai-db
+    hostname: postgres
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=1111
+    ports:
+      - "5433:5432"
+    build:
+      dockerfile: ./database/Dockerfile
+      context: .
+    # networks:
+    #   - mynet
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -d postgres -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ##############################
+  # # Backend Container
+  # ##############################
+  # backend:
+  #   restart: always
+  #   container_name: promoter-ai-backend
+  #   hostname: backend
+  #   environment:
+  #     - DATABASE_URL=postgresql://postgres:postgres@postgres:5432/postgres?schema=public
+  #     - SERVER_PORT=3001
+  #   build:
+  #     dockerfile: ./Dockerfile
+  #     context: ./backend
+  #   depends_on:
+  #     postgres:
+  #       condition: service_healthy
+  #   networks:
+  #     - mynet
+  #   ports:
+  #     - "3001:3001"
+
+  # ##############################
+  # # Frontend Container
+  # ##############################
+#   frontend:
+#     restart: always
+#     container_name: promoter-ai-frontend
+#     hostname: frontend
+#     build:
+#       dockerfile: ./Dockerfile
+#       context: ./frontend
+#     ports:
+#       - "3000:3000"
+#     depends_on:
+#       - "backend"
+#     networks:
+#       - mynet
+# networks:
+#   mynet:
+#     driver: bridge
