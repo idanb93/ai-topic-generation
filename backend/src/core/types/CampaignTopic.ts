@@ -6,6 +6,7 @@ type CampaignTopic = {
     topic: string,
     geo: string,
     platform: string,
+    clicks: number
 }
 
 export type { CampaignTopic }

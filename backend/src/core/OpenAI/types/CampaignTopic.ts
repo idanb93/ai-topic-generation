@@ -6,6 +6,7 @@ export const CampaignTopicResponse = z.object({
   topic: z.string(),
   geo: z.string(),
   platform: z.string(),
+  
 });
 
 export const topicsGenerationResponse = z.object({

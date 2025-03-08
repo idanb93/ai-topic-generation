@@ -6,5 +6,6 @@ export type CampaignTopic = {
     sub_vertical: string,
     topic: string,
     geo: string,
-    platform: MediaBuyingPlatform
+    platform: MediaBuyingPlatform,
+    clicks: number
 }

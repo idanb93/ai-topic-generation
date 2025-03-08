@@ -11,13 +11,13 @@ export class ChatGPT {
     })
   }
 
-  async generateCompletion(model: string, content: string): Promise<any> {
+  async generateCompletion(model: string, prompt: string): Promise<any> {
     try {
       const completion = await this.openai.chat.completions.create({
         model: model,
         messages: [
           { role: "system", content: "You are a helpful assistant." },
-          { role: "user", content: content },
+          { role: "user", content: prompt },
         ],
         response_format: zodResponseFormat(topicsGenerationResponse, "event"),
         store: true,

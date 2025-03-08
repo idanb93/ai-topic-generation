@@ -1,59 +1,79 @@
 import { Request, Response } from "express"
-import { CampaignTopic } from "../core/types/CampaignTopic"
-import { _getAllCampaignsTopics, _addCustomizedCampaignTopic, _deleteCampaignTopic } from "../services/campaignsTopics"
+import { _getAllCampaignsTopics, _addCustomizedCampaignTopic, _deleteCampaignTopic, _addClickToCampaignTopic } from "../services/campaignsTopics"
 
 export const CampaignTopicController = {
-    getAllCampaignsTopics,
-    addCustomizedCampaignTopic,
-    deleteCampaignTopic
+  getAllCampaignsTopics,
+  addCustomizedCampaignTopic,
+  deleteCampaignTopic,
+  addClickToCampaignTopic
 }
 
-
-async function getAllCampaignsTopics(request: Request, response: Response) : Promise<void> {
+async function getAllCampaignsTopics (request: Request, response: Response): Promise<void> {
   try {
     const res = await _getAllCampaignsTopics()
     response.status(200).send({
-      message: "Campaigns fetched successful!",
+      message: "Campaigns Topics fetched successful!",
       data: res,
     })
-  } catch (e) {
-    console.log(e)
+  } catch (err) {
+    console.log(err)
     response.status(404).send({
-      message: "server error",
+      message: `error in getAllCampaignsTopics : ${err}`,
     })
   }
 }
 
-async function addCustomizedCampaignTopic(request: Request, response: Response) : Promise<void> {
-    try {
-        const { verticals, geos } = request.body;
-        if (!verticals || verticals.length === 0 && !geos || geos.length === 0) {
-            throw new Error("verticals and geo fields can't be empty");
-        }
-        const res = await _addCustomizedCampaignTopic(verticals, geos);
-        response.status(200).send({
-          message: "Campaigns fetched successful!",
-          data: res,
-        })
-      } catch (e) {
-        console.log(e)
-        response.status(404).send({
-          message: `error in addCustomizedCampaignTopic : ${e}`,
-        })
-      }
+async function addCustomizedCampaignTopic (request: Request, response: Response): Promise<void> {
+  try {
+    const { verticals, geos } = request.body;
+    if (!verticals || verticals.length === 0 && !geos || geos.length === 0) {
+      throw new Error("verticals and geo fields can't be empty");
+    }
+    const res = await _addCustomizedCampaignTopic(verticals, geos);
+    response.status(200).send({
+      message: "Created 10 Topics!",
+      data: res,
+    })
+  } catch (err) {
+    console.log(err)
+    response.status(404).send({
+      message: `error in addCustomizedCampaignTopic : ${err}`,
+    })
+  }
 }
 
-async function deleteCampaignTopic(request: Request, response: Response) {
+async function deleteCampaignTopic (request: Request, response: Response) {
   try {
-    const {params: { id }} = request
-    const res = await _deleteCampaignTopic(id)
+    const { id } = request.params;
+    const res = await _deleteCampaignTopic(id);
+    if (!res) {
+      throw new Error(`Topic to delete not found!`);
+    }
     response.status(200).send({
-      message: "Campaign has been deleted!",
+      message: "Campaign Topic has been deleted!",
     })
-  } catch (e) {
-    console.log(e)
+  } catch (err) {
+    console.log(err)
     response.status(404).send({
-      message: "server error",
+      message: `error in deleteCampaignTopic : ${err}`,
+    })
+  }
+}
+
+async function addClickToCampaignTopic (request: Request, response: Response) {
+  try {
+    const { id } = request.params;
+    const res = await _addClickToCampaignTopic(id);
+    if (!res) {
+      throw new Error(`Topic not found!`);
+    }
+    response.status(200).send({
+      message: "Campaign Topic Clicks Has Been Updated!",
+    })
+  } catch (err) {
+    console.log(err)
+    response.status(404).send({
+      message: `error in addClickToCampaignTopic : ${err}`,
     })
   }
 }

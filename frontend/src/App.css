@@ -22,17 +22,31 @@
   font-size: 8vh;
 }
 
+#dashboard-sub-title-container {
+  display: flex;
+  justify-content: center;
+  height: 25%;
+}
+
+#dashboard-sub-title-container h4 {
+  display: 0px;
+  display: absolute;
+  color: black;
+  font-size: 8vh;
+}
+
 #dashboard-main-section {
   display: flex;
   flex-direction: column;
   justify-content: center;
   /* align-items: center; */
 
-  width: 65%;
+  width: 100%;
+  padding: 0px 10%;
 
-  position: relative;
-  left: 20%;
-  top: 20%;
+  /* position: relative; */
+  /* left: 20%; */
+  /* top: 20%; */
 }
 
 #add-campaign-main-section {
@@ -40,8 +54,8 @@
   justify-content: center;
   align-items: center;
 
-  margin-top: 12vh;
-  height: 95%;
+  min-height: 50%;
+  min-width: 10%;
 }
 
 #add-new-campaign-container h3 {
@@ -49,17 +63,21 @@
 }
 
 #add-new-campaign-container {
-  background-color: whitesmoke;
 
   border-radius: 2vw;
+  border: 1px solid black;
 
-  height: 75%;
+  padding: 15px 15px 15px 15px;
+
+  height: 100%;
   width: 30%;
 
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
+
+  margin-bottom: 25px;
 }
 
 .campaign-details {
@@ -73,12 +91,14 @@
 #dashboard-link-add-campaign {
   cursor: pointer;
   color: black;
+  font-size: large;
+  font-weight: bold;
+  background-color: white;
 
   text-align: center;
   text-decoration: none;
 
-  height: 5vh;
-  width: 8vw;
+  width: 170px;
 
   border: 0.3vh solid black;
   border-radius: 0.5vh;
@@ -94,9 +114,12 @@
 #link-add-campaign {
   cursor: pointer;
   color: black;
-
-  text-align: center;
+  
   text-decoration: none;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   height: 5vh;
   width: 8vw;
@@ -115,4 +138,12 @@
 #add-campaign-links-container {
   display: flex;
   justify-content: space-around;
+}
+
+.ellipsis-text {
+  display: inline-block;
+  width: 100%;         /* Ensure it takes full width */
+  overflow: hidden;     /* Hide overflow text */
+  white-space: nowrap;  /* Keep text on a single line */
+  text-overflow: ellipsis; /* Add "..." at the end */
 }
